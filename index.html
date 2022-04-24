@@ -1,87 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Online Shop</title>
-    <link href="./sass/style.css" rel="stylesheet" type="text/css">
-    <link href="./fonts/fonts.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<header>
-    <div class="header-search-block">
-        <img class="home" alt="shop logo" src="./img/header-logo.webp" width="45px" height="45px"/>
-        <input type="text" class="header-search" placeholder="Search">
-    </div>
+    <link href="./sass/style.css" rel="stylesheet" type="text/css" />
+    <link href="./fonts/fonts.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-search-block">
+        <img
+          class="home"
+          alt="shop logo"
+          src="./img/header-logo.webp"
+          width="45px"
+          height="45px"
+        />
+        <input type="text" class="header-search" placeholder="Search" />
+      </div>
 
-    <div class="header-pages">
-        <div class="pages-item">
-            <h3>Home</h3>
+      <div class="header-pages">
+        <div class="pages-item active-page">
+          <h3>Home</h3>
         </div>
         <div class="pages-item">
-            <h3>About</h3>
+          <h3>About</h3>
         </div>
         <div class="pages-item">
-            <h3>Contact</h3>
+          <h3>Contact</h3>
         </div>
-    </div>
-</header>
+      </div>
+    </header>
 
-<main>
-    <div class="main-bg">
-        <img src="./img/top-bg.webp" alt="shop top bg" width="700px" height="300px">
+    <main>
+      <div class="main-bg">
+        <img
+          src="./img/top-bg.webp"
+          alt="shop top bg"
+          width="700px"
+          height="300px"
+        />
         <h3>Geeks' Magical Kubic Source</h3>
-    </div>
+      </div>
 
-    <div class="main-shop">
+      <div class="main-shop">
         <div class="shop-filter">
-            <div class="filters-category">
-                <div class="category active">all</div>
-                <div class="category">mac</div>
-                <div class="category">macbook</div>
-                <div class="category">iphone</div>
-                <div class="category">ipad</div>
-                <div class="category">watch</div>
-                <div class="category">airpods</div>
-            </div>
-            <div class="filters-price">
-                <select class="category-price" name="prices-filter">
-                    <option value="High to low">High to low</option>
-                    <option value="Low to high">Low to high</option>
-                </select>
-            </div>
+          <div class="filters-category">
+            <div class="category active">all</div>
+            <div class="category">mac</div>
+            <div class="category">macbook</div>
+            <div class="category">iphone</div>
+            <div class="category">ipad</div>
+            <div class="category">watch</div>
+            <div class="category">airpods</div>
+          </div>
+          <div class="filters-price">
+            <select class="category-price" name="prices-filter">
+              <option value="HL">High to low</option>
+              <option value="LH">Low to high</option>
+            </select>
+          </div>
         </div>
 
-        <div class="shop-items">
+        <div class="shop-items"></div>
+      </div>
+    </main>
 
-        </div>
-    </div>
-</main>
-
-<footer>
-    <div class="footer-contacts">
-        <img class="footer-logo" src="./img/footer-logo.webp" alt="shop footer logo" width="36" height="36">
+    <footer>
+      <div class="footer-contacts">
+        <img
+          class="footer-logo"
+          src="./img/footer-logo.webp"
+          alt="shop footer logo"
+          width="36"
+          height="36"
+        />
         <div class="contacts">
-            <h3>kubic.store</h3>
-            <div class="contacts-socials">
-                <img src="./img/ico/dribbble.webp" alt="dribble">
-                <img src="./img/ico/inst.webp" alt="inst">
-                <img src="./img/ico/twitter.webp" alt="twitter">
-            </div>
+          <h3>kubic.store</h3>
+          <div class="contacts-socials">
+            <img src="./img/ico/dribbble.webp" alt="dribble" />
+            <img src="./img/ico/inst.webp" alt="inst" />
+            <img src="./img/ico/twitter.webp" alt="twitter" />
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="footer-email">
+      <div class="footer-email">
         <h3>Subscribe to our mail list</h3>
         <div class="email-form">
-            <img class="form-mail__ico" src="./img/ico/mail.webp" alt="email">
-            <input type="text" placeholder="Enter your mail here">
-            <img class="form-send" src="./img/ico/arrow-right.webp" alt="send">
+          <img class="form-mail__ico" src="./img/ico/mail.webp" alt="email" />
+          <input type="text" placeholder="Enter your mail here" />
+          <img class="form-send" src="./img/ico/arrow-right.webp" alt="send" />
         </div>
-    </div>
-</footer>
+      </div>
+    </footer>
 
-<script src="./script.js"></script>
-</body>
+    <script src="./script.js"></script>
+  </body>
 </html>

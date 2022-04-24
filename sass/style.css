@@ -106,10 +106,6 @@ header input {
   right: 125px;
 }
 
-.header-pages h3 {
-  border-bottom: 1px solid #E5E7EF;
-}
-
 main {
   height: auto;
   width: 90%;
@@ -387,7 +383,7 @@ footer {
   -webkit-box-shadow: none;
           box-shadow: none;
   line-height: 55px;
-  padding-left: 35px;
+  padding-left: 50px;
   color: #ffffff;
   font-size: 15px;
 }
@@ -398,11 +394,36 @@ footer {
 }
 
 .form-mail__ico {
-  left: 5px;
+  left: 15px;
 }
 
 .form-send {
   right: 15px;
   cursor: pointer;
+}
+
+.active-page h3 {
+  border-bottom: 1px solid #E5E7EF;
+}
+
+.item-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.item-page img {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  -webkit-transform: translate(0%, -50%);
+          transform: translate(0%, -50%);
+}
+
+.page-controls {
+  width: 370px;
+  position: absolute;
+  top: 80px;
+  right: 0;
 }
 /*# sourceMappingURL=style.css.map */

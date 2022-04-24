@@ -2,7 +2,7 @@ const state = {
   items: [
     {
       id: 1,
-      name: "Item 1",
+      name: "iPhone",
       price: 10,
       quantity: 1,
       image: "./img/items/item1.webp",
@@ -10,15 +10,15 @@ const state = {
     },
     {
       id: 2,
-      name: "Item 2",
+      name: "MacBook",
       price: 20,
       quantity: 1,
       image: "./img/items/item2.webp",
-      tag: "",
+      tag: "macbook",
     },
     {
       id: 3,
-      name: "Item 3",
+      name: "iPad",
       price: 30,
       quantity: 1,
       image: "./img/items/item3.webp",
@@ -26,7 +26,7 @@ const state = {
     },
     {
       id: 4,
-      name: "Item 4",
+      name: "Apple Watch",
       price: 40,
       quantity: 1,
       image: "./img/items/item4.webp",
@@ -72,13 +72,8 @@ pushItems(state.items, shop);
 
 let shopItems = document.querySelectorAll(".shop-item");
 
-const itemPage = (
-  name = "Item",
-  price = "1000",
-  img = "./img/items/item1.webp",
-  desc = "qwerty",
-  parent = document.body
-) => {
+const itemPage = (item) => {
+  console.log(item);
   //creating elements
   let itemPage = document.createElement("div");
   let itemImg = document.createElement("img");
@@ -99,15 +94,15 @@ const itemPage = (
   itemControlsShareIcons.className = "controls-share-icons";
 
   //putting img sources
-  itemImg.src = img;
+  itemImg.src = item.innerHTML.split("src=")[1].split('"')[1];
   itemControlsShareIconsImg1.src = "./img/ico/dribbble.webp";
   itemControlsShareIconsImg2.src = "./img/ico/inst.webp";
   itemControlsShareIconsImg3.src = "./img/ico/twitter.webp";
 
   //putting text
-  itemName.innerText = name;
-  itemDesc.innerText = desc;
-  itemPrice.innerText = price;
+  itemName.innerText = item.children[1].innerText;
+  itemDesc.innerText = "qwerty";
+  itemPrice.innerText = item.children[2].innerText;
 
   //putting elements to the page
   itemControlsShareIcons.appendChild(itemControlsShareIconsImg1);
@@ -120,7 +115,7 @@ const itemPage = (
   itemControls.appendChild(itemControlsShare);
   itemPage.appendChild(itemImg);
   itemPage.appendChild(itemControls);
-  parent.prepend(itemPage);
+  document.body.prepend(itemPage);
 };
 
 function router(items) {
@@ -134,9 +129,10 @@ function router(items) {
         history.pushState(
           null,
           null,
-          `${item.children[1].outerText.toLowerCase().replace(/\s/g, "")}`
+          `item-${item.children[1].outerText.toLowerCase().replace(/\s/g, "")}`
         );
-        pageChange();
+        pageChange(item);
+        console.log(item);
       })
   );
 
@@ -151,11 +147,11 @@ function router(items) {
   });
 
   //routing function
-  //checking URL if it includes "favourite" and then deleteing/rendering elements
-  function pageChange() {
+  //checking URL if it includes item and then deleteing/rendering elements
+  function pageChange(el) {
     if (location.href.includes("item")) {
       deleteElements("home");
-      renderElements("item");
+      renderElements("item", el);
       console.log("item");
     } else {
       console.log("home");
@@ -164,7 +160,7 @@ function router(items) {
     }
   }
 
-  //function that deletes all elements from main/favourite page
+  //function that deletes all elements from home/item page
   function deleteElements(page) {
     if (page === "home") {
       main.style.display = "none";
@@ -172,15 +168,37 @@ function router(items) {
       document.querySelector(".item-page").remove();
     }
   }
-  //function that renders all elements from main/favourite page
-  function renderElements(page) {
+  //function that renders all elements from home/item page
+  function renderElements(page, el) {
     if (page === "home") {
       main.style.display = "block";
     } else {
-      //function that renders "favourite" page
-      itemPage();
+      //function that renders item page
+      itemPage(el);
     }
   }
 }
 
 router(shopItems);
+
+const filterPrice = (arr) => {
+  document.querySelectorAll(".shop-item").forEach((item) => {
+    item.remove();
+  });
+
+  pushItems(arr, shop);
+};
+
+const filterItems = (e) => {
+  let arr = [];
+  if (e.target.value === "HL") {
+    arr = state.items.sort((a, b) => b.price - a.price);
+  } else if (e.target.value === "LH") {
+    arr = state.items.sort((a, b) => a.price - b.price);
+  }
+
+  filterPrice(arr);
+};
+
+let categoryPrice = document.querySelector(".category-price");
+categoryPrice.onchange = filterItems;
