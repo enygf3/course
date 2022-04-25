@@ -142,7 +142,9 @@ function router(items) {
   });
 
   home.addEventListener("click", () => {
-    history.pushState(null, null, "/");
+    location.href.includes("github")
+      ? history.pushState(null, null, "/course")
+      : history.pushState(null, null, "/");
     pageChange();
   });
 
