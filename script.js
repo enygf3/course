@@ -238,19 +238,24 @@ const filterPrice = (arr) => {
   router(document.querySelectorAll(".shop-item"));
 };
 
-const filterItems = (e) => {
+const filterItems = () => {
   let arr = [];
-  if (e.target.value === "HL") {
+  if (state.priceFilter === "HL") {
     arr = state.items.sort((a, b) => b.price - a.price);
-  } else if (e.target.value === "LH") {
+  } else if (state.priceFilter === "LH") {
     arr = state.items.sort((a, b) => a.price - b.price);
   }
 
   filterPrice(arr);
 };
 
+getPriceFilter = (e) => {
+  state.priceFilter = e.target.value;
+  filterItems();
+};
+
 let categoryPrice = document.querySelector(".category-price");
-categoryPrice.onchange = filterItems;
+categoryPrice.onchange = getPriceFilter;
 
 const renderSearchItems = (arr) => {
   arr.forEach((item) => {
