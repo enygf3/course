@@ -7,6 +7,8 @@ const state = {
       quantity: 1,
       image: "./img/items/item1.webp",
       tag: "iphone",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
     },
     {
       id: 2,
@@ -15,6 +17,8 @@ const state = {
       quantity: 1,
       image: "./img/items/item2.webp",
       tag: "macbook",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
     },
     {
       id: 3,
@@ -23,6 +27,8 @@ const state = {
       quantity: 1,
       image: "./img/items/item3.webp",
       tag: "ipad",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
     },
     {
       id: 4,
@@ -31,6 +37,8 @@ const state = {
       quantity: 1,
       image: "./img/items/item4.webp",
       tag: "watch",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
     },
   ],
   category: "all",
@@ -142,14 +150,14 @@ const itemPage = (item) => {
   document.body.prepend(itemPage);
 };
 
-function router(items = shopItems) {
+function router(items = shopItems, deleteBlock = 0) {
   //geting all elements from the main page
   let main = document.getElementsByTagName("main")[0];
   let home = document.querySelector(".home");
   let footer = document.getElementsByTagName("footer")[0];
 
   Array.from(items).forEach(
-    (item) =>
+    (item, arr) =>
       (item.onclick = () => {
         history.pushState(
           null,
@@ -157,7 +165,7 @@ function router(items = shopItems) {
           `item-${item.children[1].outerText.toLowerCase().replace(/\s/g, "")}`
         );
         pageChange(item);
-        console.log(item);
+        console.log(item, arr);
       })
   );
 
@@ -179,9 +187,13 @@ function router(items = shopItems) {
     if (location.href.includes("item")) {
       deleteElements("home");
       renderElements("item", el);
-      console.log("item");
+      deleteBlock === 1
+        ? (document.querySelector(".header-search").value = "")
+        : 0;
+      deleteBlock === 1
+        ? document.querySelector(".search-result").remove()
+        : console.log(deleteBlock);
     } else {
-      console.log("home");
       deleteElements("item");
       renderElements("home");
     }
@@ -221,7 +233,6 @@ const filterPrice = (arr) => {
 
 const filterItems = (e) => {
   let arr = [];
-  console.log(e.target.value);
   if (e.target.value === "HL") {
     arr = state.items.sort((a, b) => b.price - a.price);
   } else if (e.target.value === "LH") {
@@ -233,3 +244,60 @@ const filterItems = (e) => {
 
 let categoryPrice = document.querySelector(".category-price");
 categoryPrice.onchange = filterItems;
+
+const renderSearchItems = (arr) => {
+  arr.forEach((item) => {
+    let searchItem = document.createElement("div");
+    let itemName = document.createElement("h3");
+    let itemPrice = document.createElement("p");
+    let itemImg = document.createElement("img");
+
+    searchItem.className = "search-item";
+    itemName.innerText = item.name;
+    itemPrice.innerText = item.price + "$";
+    itemImg.src = item.image;
+
+    searchItem.appendChild(itemImg);
+    searchItem.appendChild(itemName);
+    searchItem.appendChild(itemPrice);
+    document.querySelector(".search-result").appendChild(searchItem);
+  });
+};
+
+const renderSearchBlock = (arr) => {
+  if (!document.querySelector(".search-result")) {
+    let div = document.createElement("div");
+    div.className = "search-result";
+    let h3 = document.createElement("h3");
+    h3.innerText = "Search result";
+    div.appendChild(h3);
+    document.body.appendChild(div);
+    renderSearchItems(arr);
+    router(document.querySelectorAll(".search-item"), 1);
+  }
+};
+
+const deleteSearchBlock = (block) => {
+  console.log("lsds");
+  block ? block.remove() : 0;
+};
+
+const search = (e) => {
+  let arr = [];
+  let input = e.target.value.toLowerCase().replace(/\s/g, "");
+  state.items.forEach((item) => {
+    if (
+      (item.name.toLowerCase().replace(/\s/g, "").includes(input) ||
+        item.description.toLowerCase().replace(/\s/g, "").includes(input)) &&
+      input.length >= 3
+    ) {
+      arr.push(item);
+    }
+  });
+
+  input.length >= 3
+    ? renderSearchBlock(arr)
+    : deleteSearchBlock(document.querySelector(".search-result"));
+};
+
+document.querySelector(".header-search").oninput = search;
