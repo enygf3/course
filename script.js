@@ -104,7 +104,14 @@ pushItems(state.items, shop);
 
 let shopItems = document.querySelectorAll(".shop-item");
 
-const itemPage = (item) => {
+const handleSimilarProduct = (e) => {
+  itemPage(e.target.parentNode, 1);
+};
+
+function itemPage(item, fromSimilar = 0) {
+  document.querySelector(".item-page")
+    ? document.querySelector(".item-page").remove()
+    : 0;
   //creating elements
   let itemPage = document.createElement("div");
   let itemImg = document.createElement("img");
@@ -160,12 +167,29 @@ const itemPage = (item) => {
   similarProductTextBlock.appendChild(similarProductPrice);
   similarProduct.appendChild(similarProductTextBlock);
 
+  console.log(item.children);
+
   //putting text
-  itemName.innerText = item.children[1].innerText;
-  itemDesc.innerText = state.items.find(
-    (item) => item.name === itemName.innerText
-  ).description;
-  itemPrice.innerText = item.children[2].innerText;
+  if (!fromSimilar) {
+    itemName.innerText = item.children[1].innerText;
+    itemDesc.innerText = state.items.find(
+      (item) => item.name === itemName.innerText
+    ).description;
+    itemPrice.innerText = item.children[2].innerText;
+  } else {
+    itemName.innerText = item.children[2].children[0].innerText;
+    itemDesc.innerText = state.items.find(
+      (el) => el.name === itemName.innerText
+    ).description;
+    itemPrice.innerText = item.children[2].children[1].innerText;
+    console.log(
+      itemName.innerText,
+      itemDesc.innerText,
+      itemPrice.innerText,
+      itemImg.src
+    );
+  }
+
   itemControlsText.innerText = "Share on";
 
   //putting elements to the page
@@ -182,7 +206,11 @@ const itemPage = (item) => {
   itemPage.appendChild(itemImg);
   itemPage.appendChild(itemControls);
   document.body.prepend(itemPage);
-};
+
+  console.log(document.body);
+
+  document.querySelector(".similar-product").onclick = handleSimilarProduct;
+}
 
 function router(items = shopItems, deleteBlock = 0) {
   //geting all elements from the main page
