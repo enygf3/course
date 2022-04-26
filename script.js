@@ -111,6 +111,7 @@ const itemPage = (item) => {
   let itemName = document.createElement("h3");
   let itemDesc = document.createElement("p");
   let itemPrice = document.createElement("button");
+
   let itemControls = document.createElement("div");
   let itemControlsShare = document.createElement("div");
   let itemControlsShareIcons = document.createElement("div");
@@ -119,18 +120,45 @@ const itemPage = (item) => {
   let itemControlsShareIconsImg3 = document.createElement("img");
   let itemControlsText = document.createElement("p");
 
+  let similarProduct = document.createElement("div");
+  let similarProductBlockTitle = document.createElement("h3");
+  let similarProductTitle = document.createElement("h3");
+  let similarProductImg = document.createElement("img");
+  let similarProductPrice = document.createElement("p");
+  let similarProductTextBlock = document.createElement("div");
+
   //giving elements classes
   itemPage.className = "item-page";
+  itemName.className = "item-name";
   itemControls.className = "page-controls";
   itemControlsShare.className = "controls-share";
   itemControlsShareIcons.className = "controls-share-icons";
   itemImg.className = "page-img";
+  similarProductTextBlock.className = "product-text";
+
+  similarProduct.className = "similar-product";
+  similarProductTextBlock.className = "product-text-block";
+  similarProductBlockTitle.className = "product-title";
 
   //putting img sources
   itemImg.src = item.innerHTML.split("src=")[1].split('"')[1];
   itemControlsShareIconsImg1.src = "./img/ico/dribbble-dark.webp";
   itemControlsShareIconsImg2.src = "./img/ico/inst-dark.webp";
   itemControlsShareIconsImg3.src = "./img/ico/twitter-dark.webp";
+
+  //similart product
+  let product = state.items[Math.floor(Math.random() * state.items.length)];
+  similarProductImg.src = product.image;
+  similarProductTitle.innerText = product.name;
+  similarProductPrice.innerText = product.price + " $";
+  similarProductBlockTitle.innerText = "Similar product";
+
+  //putting info to similar product block
+  similarProduct.appendChild(similarProductBlockTitle);
+  similarProduct.appendChild(similarProductImg);
+  similarProductTextBlock.appendChild(similarProductTitle);
+  similarProductTextBlock.appendChild(similarProductPrice);
+  similarProduct.appendChild(similarProductTextBlock);
 
   //putting text
   itemName.innerText = item.children[1].innerText;
@@ -150,6 +178,7 @@ const itemPage = (item) => {
   itemControls.appendChild(itemDesc);
   itemControls.appendChild(itemPrice);
   itemControls.appendChild(itemControlsShare);
+  itemControls.appendChild(similarProduct);
   itemPage.appendChild(itemImg);
   itemPage.appendChild(itemControls);
   document.body.prepend(itemPage);
@@ -313,3 +342,24 @@ const search = (e) => {
 };
 
 document.querySelector(".header-search").oninput = search;
+
+const getSimilarProduct = (arr) => {
+  let similarProduct = document.querySelector(".similar-product");
+  similarProduct.innerHTML = "";
+  arr.forEach((item) => {
+    let product = document.createElement("div");
+    let productImg = document.createElement("img");
+    let productName = document.createElement("h3");
+    let productPrice = document.createElement("p");
+
+    product.className = "product";
+    productName.innerText = item.name;
+    productPrice.innerText = item.price + "$";
+    productImg.src = item.image;
+
+    product.appendChild(productImg);
+    product.appendChild(productName);
+    product.appendChild(productPrice);
+    similarProduct.appendChild(product);
+  });
+};

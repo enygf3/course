@@ -432,7 +432,7 @@ footer {
   padding: 25px 25px 0px 25px;
 }
 
-.page-controls h3 {
+.page-controls .item-name {
   font-family: 'Rubik';
   font-style: normal;
   font-weight: 500;
@@ -577,6 +577,8 @@ footer {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #D8D8D8;
 }
 
 .controls-share-icons {
@@ -607,5 +609,102 @@ footer {
 
 .controls-share-icons img:last-child {
   width: 20px;
+}
+
+.similar-product {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  margin-top: 25px;
+  cursor: pointer;
+  -webkit-transition-duration: .5s;
+          transition-duration: .5s;
+}
+
+.similar-product:hover {
+  opacity: 0.8;
+  -webkit-transition-duration: .5s;
+          transition-duration: .5s;
+}
+
+.similar-product img {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  background: #EBEBEB;
+  border-radius: 15px;
+}
+
+.similar-product p {
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #404165;
+  margin-top: 25px;
+}
+
+.product-text-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  height: auto;
+  width: 100%;
+}
+
+.product-text-block h3 {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #202525;
+  margin: 0;
+}
+
+.product-text-block p {
+  margin: 0;
+}
+
+.product-title {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 27px;
+  color: #202525;
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 /*# sourceMappingURL=style.css.map */
