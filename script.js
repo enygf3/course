@@ -39,25 +39,49 @@ const state = {
 
 const shop = document.querySelector(".shop-items");
 
-function pushItems(arr, parent) {
-  arr.forEach((item) => {
-    const div = document.createElement("div");
-    div.classList.add("shop-item");
-    div.innerHTML = `
+function pushItems(arr, parent, noSort = 1) {
+  arr
+    .sort((a, b) => (noSort ? b.price - a.price : 0))
+    .forEach((item) => {
+      const div = document.createElement("div");
+      div.classList.add("shop-item");
+      div.id = item.tag;
+      div.innerHTML = `
       <img src="${item.image}" alt="${item.name}">
       <h3>${item.name}</h3>
       <p>${item.price} $</p>
     `;
-    parent.appendChild(div);
-  });
+      parent.appendChild(div);
+    });
 }
 
 const categories = document.querySelectorAll(".category");
 
+const getCategory = (e) => {
+  return e.target.innerText.toLowerCase();
+};
+
+const categoryFilter = (value) => {
+  if (value === "all") {
+    return state.items;
+  } else {
+    return state.items.filter((item) => item.tag === value);
+  }
+};
+
+const removeItems = (items) => {
+  items.forEach((item) => {
+    item.remove();
+  });
+};
+
 function handleCategory(cats, state) {
   cats.forEach((item) => {
     item.onclick = (e) => {
-      state.category = e.target.innerText.toLowerCase();
+      state.category = getCategory(e);
+      removeItems(document.querySelectorAll(".shop-item"));
+      pushItems(categoryFilter(state.category), shop);
+      router(document.querySelectorAll(".shop-item"));
       Array.from(cats)
         .find((el) => el.classList.contains("active"))
         .classList.remove("active");
@@ -118,10 +142,11 @@ const itemPage = (item) => {
   document.body.prepend(itemPage);
 };
 
-function router(items) {
+function router(items = shopItems) {
   //geting all elements from the main page
   let main = document.getElementsByTagName("main")[0];
   let home = document.querySelector(".home");
+  let footer = document.getElementsByTagName("footer")[0];
 
   Array.from(items).forEach(
     (item) =>
@@ -137,16 +162,16 @@ function router(items) {
   );
 
   //checking if URL have changed
-  window.addEventListener("popstate", () => {
+  window.onpopstate = () => {
     pageChange();
-  });
+  };
 
-  home.addEventListener("click", () => {
+  home.onclick = () => {
     location.href.includes("github")
       ? history.pushState(null, null, "/course")
       : history.pushState(null, null, "/");
     pageChange();
-  });
+  };
 
   //routing function
   //checking URL if it includes item and then deleteing/rendering elements
@@ -166,6 +191,7 @@ function router(items) {
   function deleteElements(page) {
     if (page === "home") {
       main.style.display = "none";
+      footer.style.display = "none";
     } else {
       document.querySelector(".item-page").remove();
     }
@@ -174,6 +200,7 @@ function router(items) {
   function renderElements(page, el) {
     if (page === "home") {
       main.style.display = "block";
+      footer.style.display = "flex";
     } else {
       //function that renders item page
       itemPage(el);
@@ -181,18 +208,20 @@ function router(items) {
   }
 }
 
-router(shopItems);
+router(document.querySelectorAll(".shop-item"));
 
 const filterPrice = (arr) => {
   document.querySelectorAll(".shop-item").forEach((item) => {
     item.remove();
   });
 
-  pushItems(arr, shop);
+  pushItems(arr, shop, 0);
+  router(document.querySelectorAll(".shop-item"));
 };
 
 const filterItems = (e) => {
   let arr = [];
+  console.log(e.target.value);
   if (e.target.value === "HL") {
     arr = state.items.sort((a, b) => b.price - a.price);
   } else if (e.target.value === "LH") {
