@@ -153,13 +153,6 @@ function itemPage(item, fromSimilar = 0) {
   itemControlsShareIconsImg2.src = "./img/ico/inst-dark.webp";
   itemControlsShareIconsImg3.src = "./img/ico/twitter-dark.webp";
 
-  //similart product
-  let product = state.items[Math.floor(Math.random() * state.items.length)];
-  similarProductImg.src = product.image;
-  similarProductTitle.innerText = product.name;
-  similarProductPrice.innerText = product.price + " $";
-  similarProductBlockTitle.innerText = "Similar product";
-
   //putting info to similar product block
   similarProduct.appendChild(similarProductBlockTitle);
   similarProduct.appendChild(similarProductImg);
@@ -188,6 +181,20 @@ function itemPage(item, fromSimilar = 0) {
       itemPrice.innerText,
       itemImg.src
     );
+  }
+
+  //similart product
+  let product = state.items[Math.floor(Math.random() * state.items.length)];
+  similarProductImg.src = product.image;
+  similarProductTitle.innerText = product.name;
+  similarProductPrice.innerText = product.price + " $";
+  similarProductBlockTitle.innerText = "Similar product";
+
+  while (similarProductTitle.innerText === itemName.innerText) {
+    product = state.items[Math.floor(Math.random() * state.items.length)];
+    similarProductImg.src = product.image;
+    similarProductTitle.innerText = product.name;
+    similarProductPrice.innerText = product.price + " $";
   }
 
   itemControlsText.innerText = "Share on";
