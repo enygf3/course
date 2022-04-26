@@ -267,11 +267,12 @@ footer
   height: 100%
   position: relative
   background: #EBEBEB
-  img
-    position: absolute
-    top: 50%
-    left: 25%
-    transform: translate(0%, -50%)
+
+.page-img
+  position: absolute
+  top: 50%
+  left: 25%
+  transform: translate(0%, -50%)
 
 .page-controls
   width: 370px
@@ -281,6 +282,7 @@ footer
   height: calc(100% - 80px)
   z-index: 1
   background: #fff
+  padding: 25px 25px 0px 25px
   h3
     font-family: 'Rubik'
     font-style: normal
@@ -288,6 +290,7 @@ footer
     font-size: 24px
     line-height: 36px
     color: #202525
+    user-select: text
   p
     font-family: 'Rubik'
     font-style: normal
@@ -295,6 +298,8 @@ footer
     font-size: 16px
     line-height: 24px
     color: #404165
+    margin-top: 25px
+    user-select: text
   button
     background: #212121
     border-radius: 4px
@@ -311,6 +316,12 @@ footer
     letter-spacing: 3.6px
     text-transform: uppercase
     color: #FFFFFF
+    cursor: pointer
+    transition-duration: .5s
+    margin-top: 25px
+    &:hover
+      opacity: 0.6
+      transition-duration: .5s
 
 .search-result
   position: fixed
@@ -348,3 +359,28 @@ footer
     line-height: 24px
   h3
     font-size: 16px
+
+.controls-share
+  margin-top: 25px
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  width: 200px
+  height: auto
+  align-items: end
+  justify-content: space-evenly
+
+.controls-share-icons
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  align-items: center
+  justify-content: space-evenly
+  width: 100px
+  height: 30px
+  img
+    width: 16px
+    height: 16px
+    cursor: pointer
+    &:last-child
+      width: 20px

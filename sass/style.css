@@ -413,7 +413,7 @@ footer {
   background: #EBEBEB;
 }
 
-.item-page img {
+.page-img {
   position: absolute;
   top: 50%;
   left: 25%;
@@ -429,6 +429,7 @@ footer {
   height: calc(100% - 80px);
   z-index: 1;
   background: #fff;
+  padding: 25px 25px 0px 25px;
 }
 
 .page-controls h3 {
@@ -438,6 +439,10 @@ footer {
   font-size: 24px;
   line-height: 36px;
   color: #202525;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
 }
 
 .page-controls p {
@@ -447,6 +452,11 @@ footer {
   font-size: 16px;
   line-height: 24px;
   color: #404165;
+  margin-top: 25px;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
 }
 
 .page-controls button {
@@ -466,6 +476,16 @@ footer {
   letter-spacing: 3.6px;
   text-transform: uppercase;
   color: #FFFFFF;
+  cursor: pointer;
+  -webkit-transition-duration: .5s;
+          transition-duration: .5s;
+  margin-top: 25px;
+}
+
+.page-controls button:hover {
+  opacity: 0.6;
+  -webkit-transition-duration: .5s;
+          transition-duration: .5s;
 }
 
 .search-result {
@@ -536,5 +556,56 @@ footer {
 
 .search-result h3 {
   font-size: 16px;
+}
+
+.controls-share {
+  margin-top: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 200px;
+  height: auto;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.controls-share-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 100px;
+  height: 30px;
+}
+
+.controls-share-icons img {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.controls-share-icons img:last-child {
+  width: 20px;
 }
 /*# sourceMappingURL=style.css.map */

@@ -105,7 +105,6 @@ pushItems(state.items, shop);
 let shopItems = document.querySelectorAll(".shop-item");
 
 const itemPage = (item) => {
-  console.log(item);
   //creating elements
   let itemPage = document.createElement("div");
   let itemImg = document.createElement("img");
@@ -118,25 +117,31 @@ const itemPage = (item) => {
   let itemControlsShareIconsImg1 = document.createElement("img");
   let itemControlsShareIconsImg2 = document.createElement("img");
   let itemControlsShareIconsImg3 = document.createElement("img");
+  let itemControlsText = document.createElement("p");
 
   //giving elements classes
   itemPage.className = "item-page";
   itemControls.className = "page-controls";
   itemControlsShare.className = "controls-share";
   itemControlsShareIcons.className = "controls-share-icons";
+  itemImg.className = "page-img";
 
   //putting img sources
   itemImg.src = item.innerHTML.split("src=")[1].split('"')[1];
-  itemControlsShareIconsImg1.src = "./img/ico/dribbble.webp";
-  itemControlsShareIconsImg2.src = "./img/ico/inst.webp";
-  itemControlsShareIconsImg3.src = "./img/ico/twitter.webp";
+  itemControlsShareIconsImg1.src = "./img/ico/dribbble-dark.webp";
+  itemControlsShareIconsImg2.src = "./img/ico/inst-dark.webp";
+  itemControlsShareIconsImg3.src = "./img/ico/twitter-dark.webp";
 
   //putting text
   itemName.innerText = item.children[1].innerText;
-  itemDesc.innerText = "qwerty";
+  itemDesc.innerText = state.items.find(
+    (item) => item.name === itemName.innerText
+  ).description;
   itemPrice.innerText = item.children[2].innerText;
+  itemControlsText.innerText = "Share on";
 
   //putting elements to the page
+  itemControlsShare.appendChild(itemControlsText);
   itemControlsShareIcons.appendChild(itemControlsShareIconsImg1);
   itemControlsShareIcons.appendChild(itemControlsShareIconsImg2);
   itemControlsShareIcons.appendChild(itemControlsShareIconsImg3);
@@ -218,6 +223,8 @@ function router(items = shopItems, deleteBlock = 0) {
       itemPage(el);
     }
   }
+
+  return 0;
 }
 
 router(document.querySelectorAll(".shop-item"));
