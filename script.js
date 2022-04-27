@@ -118,6 +118,7 @@ function itemPage(item, fromSimilar = 0) {
   let itemName = document.createElement("h3");
   let itemDesc = document.createElement("p");
   let itemPrice = document.createElement("button");
+  let productInfoBlock = document.createElement("div");
 
   let itemControls = document.createElement("div");
   let itemControlsShare = document.createElement("div");
@@ -142,6 +143,7 @@ function itemPage(item, fromSimilar = 0) {
   itemControlsShareIcons.className = "controls-share-icons";
   itemImg.className = "page-img";
   similarProductTextBlock.className = "product-text";
+  productInfoBlock.className = "product-info";
 
   similarProduct.className = "similar-product";
   similarProductTextBlock.className = "product-text-block";
@@ -205,10 +207,11 @@ function itemPage(item, fromSimilar = 0) {
   itemControlsShareIcons.appendChild(itemControlsShareIconsImg2);
   itemControlsShareIcons.appendChild(itemControlsShareIconsImg3);
   itemControlsShare.appendChild(itemControlsShareIcons);
-  itemControls.appendChild(itemName);
-  itemControls.appendChild(itemDesc);
-  itemControls.appendChild(itemPrice);
-  itemControls.appendChild(itemControlsShare);
+  productInfoBlock.appendChild(itemName);
+  productInfoBlock.appendChild(itemDesc);
+  productInfoBlock.appendChild(itemPrice);
+  productInfoBlock.appendChild(itemControlsShare);
+  itemControls.appendChild(productInfoBlock);
   itemControls.appendChild(similarProduct);
   itemPage.appendChild(itemImg);
   itemPage.appendChild(itemControls);
