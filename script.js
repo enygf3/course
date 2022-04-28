@@ -105,84 +105,20 @@ const state = {
   priceFilter: "HL",
 };
 
-const shop = document.querySelector(".shop-items");
+if (location.href.includes("contact") || location.href.includes("about")) {
+  const handleSimilarProduct = (e) => {
+    itemPage(e.target.parentNode, 1);
+  };
 
-function pushItems(arr, parent, noSort = 1) {
-  arr
-    .sort((a, b) => (noSort ? b.price - a.price : 0))
-    .forEach((item) => {
-      const div = document.createElement("div");
-      div.classList.add("shop-item");
-      div.id = item.tag;
-      div.innerHTML = `
-      <img src="${item.image}" alt="${item.name}">
-      <h3>${item.name}</h3>
-      <p>${item.price} $</p>
-    `;
-      parent.appendChild(div);
-    });
-}
+  const closeOrderBlock = () => {
+    document.querySelector(".order").remove();
+    document.querySelector(".item-page").style.opacity = "1";
+  };
 
-const categories = document.querySelectorAll(".category");
-
-const getCategory = (e) => {
-  return e.target.innerText.toLowerCase();
-};
-
-const categoryFilter = (value) => {
-  if (value === "all") {
-    return state.items;
-  } else {
-    return state.items.filter((item) => item.tag === value);
-  }
-};
-
-const removeItems = (items) => {
-  items.forEach((item) => {
-    item.remove();
-  });
-};
-
-function handleCategory(cats, state) {
-  cats.forEach((item) => {
-    item.onclick = (e) => {
-      state.category = getCategory(e);
-      removeItems(document.querySelectorAll(".shop-item"));
-      pushItems(
-        state.priceFilter === "LH"
-          ? categoryFilter(state.category).sort((a, b) => a.price - b.price)
-          : categoryFilter(state.category).sort((a, b) => b.price - a.price),
-        shop,
-        0
-      );
-      router(document.querySelectorAll(".shop-item"));
-      Array.from(cats)
-        .find((el) => el.classList.contains("active"))
-        .classList.remove("active");
-      e.target.className = "category active";
-    };
-  });
-}
-
-handleCategory(categories, state);
-
-pushItems(state.items, shop);
-
-let shopItems = document.querySelectorAll(".shop-item");
-
-const handleSimilarProduct = (e) => {
-  itemPage(e.target.parentNode, 1);
-};
-
-const closeOrderBlock = () => {
-  document.querySelector(".order").remove();
-  document.querySelector(".item-page").style.opacity = "1";
-};
-
-const handleOrder = (e) => {
-  let block = document.createElement("div");
-  block.className = "order";
-  block.innerHTML = `
+  const handleOrder = (e) => {
+    let block = document.createElement("div");
+    block.className = "order";
+    block.innerHTML = `
   <div class = "order-block">
     <img class = "block-close" src = './img/ico/xmark.webp' alt = 'close order block' width = '15' height = '20'>
       <img src = './img/ico/success.webp' width = '80' height = '80' alt = 'payment was success'>
@@ -192,30 +128,30 @@ const handleOrder = (e) => {
         <p>Thank you!</p>
       </div>
   </div>`;
-  document.body.appendChild(block);
-  document.querySelector(".item-page").style.opacity = "0.6";
-  document.querySelector(".block-close").onclick = closeOrderBlock;
-};
+    document.body.appendChild(block);
+    document.querySelector(".item-page").style.opacity = "0.6";
+    document.querySelector(".block-close").onclick = closeOrderBlock;
+  };
 
-function itemPage(item, fromSimilar = 0) {
-  document.querySelector(".item-page")
-    ? document.querySelector(".item-page").remove()
-    : 0;
-  //creating elements
-  let itemPage = document.createElement("div");
-  itemPage.className = "item-page";
-  let itemName = !fromSimilar
-    ? item.children[1].innerText
-    : item.children[2].children[0].innerText;
+  function itemPage(item, fromSimilar = 0) {
+    document.querySelector(".item-page")
+      ? document.querySelector(".item-page").remove()
+      : 0;
+    //creating elements
+    let itemPage = document.createElement("div");
+    itemPage.className = "item-page";
+    let itemName = !fromSimilar
+      ? item.children[1].innerText
+      : item.children[2].children[0].innerText;
 
-  //similart product
-  let product = state.items[Math.floor(Math.random() * state.items.length)];
+    //similart product
+    let product = state.items[Math.floor(Math.random() * state.items.length)];
 
-  while (product.name === itemName) {
-    product = state.items[Math.floor(Math.random() * state.items.length)];
-  }
+    while (product.name === itemName) {
+      product = state.items[Math.floor(Math.random() * state.items.length)];
+    }
 
-  itemPage.innerHTML = `
+    itemPage.innerHTML = `
   <img class = 'page-img' src = '${
     item.innerHTML.split("src=")[1].split('"')[1]
   }' width = '400' height = '380'>
@@ -252,189 +188,496 @@ function itemPage(item, fromSimilar = 0) {
     </div>
   </div>`;
 
-  document.body.prepend(itemPage);
+    document.body.prepend(itemPage);
 
-  document.querySelector(".similar-product").onclick = handleSimilarProduct;
+    document.querySelector(".similar-product").onclick = handleSimilarProduct;
 
-  document.querySelector(".product-info").children[2].onclick = handleOrder;
-}
+    document.querySelector(".product-info").children[2].onclick = handleOrder;
+  }
 
-function router(items = shopItems, deleteBlock = 0) {
-  //geting all elements from the main page
-  let main = document.getElementsByTagName("main")[0];
-  let home = document.querySelector(".home");
-  let footer = document.getElementsByTagName("footer")[0];
+  function router(items, deleteBlock = 0) {
+    //geting all elements from the main page
+    let main = document.getElementsByTagName("main")[0];
+    let home = document.querySelector(".home");
 
-  Array.from(items).forEach(
-    (item, arr) =>
-      (item.onclick = () => {
-        history.pushState(
-          null,
-          null,
-          `item-${item.children[1].outerText.toLowerCase().replace(/\s/g, "")}`
+    Array.from(items).forEach(
+      (item, arr) =>
+        (item.onclick = () => {
+          history.pushState(
+            null,
+            null,
+            `item-${item.children[1].outerText
+              .toLowerCase()
+              .replace(/\s/g, "")}`
+          );
+          pageChange(item);
+          console.log(item, arr);
+        })
+    );
+
+    //checking if URL have changed
+    window.onpopstate = () => {
+      pageChange();
+    };
+
+    home.onclick = () => {
+      location.href.includes("github")
+        ? history.pushState(null, null, "/course")
+        : history.pushState(null, null, "/");
+      pageChange();
+    };
+
+    //routing function
+    //checking URL if it includes item and then deleteing/rendering elements
+    function pageChange(el) {
+      if (location.href.includes("item")) {
+        deleteElements("home");
+        renderElements("item", el);
+        deleteBlock === 1
+          ? (document.querySelector(".header-search").value = "")
+          : 0;
+        deleteBlock === 1
+          ? document.querySelector(".search-result").remove()
+          : console.log(deleteBlock);
+      } else {
+        deleteElements("item");
+        renderElements("home");
+      }
+    }
+
+    //function that deletes all elements from home/item page
+    function deleteElements(page) {
+      if (page === "home") {
+        main.style.display = "none";
+      } else {
+        document.querySelector(".item-page").remove();
+      }
+    }
+    //function that renders all elements from home/item page
+    function renderElements(page, el) {
+      if (page === "home") {
+        main.style.display = "block";
+      } else {
+        //function that renders item page
+        itemPage(el);
+      }
+    }
+
+    return 0;
+  }
+
+  const renderSearchItems = (arr) => {
+    console.log("qwe");
+    arr.forEach((item) => {
+      let searchItem = document.createElement("div");
+      let itemName = document.createElement("h3");
+      let itemPrice = document.createElement("p");
+      let itemImg = document.createElement("img");
+
+      searchItem.className = "search-item";
+      itemName.innerText = item.name;
+      itemPrice.innerText = item.price + "$";
+      itemImg.src = item.image;
+
+      searchItem.appendChild(itemImg);
+      searchItem.appendChild(itemName);
+      searchItem.appendChild(itemPrice);
+      document.querySelector(".search-result").appendChild(searchItem);
+    });
+  };
+
+  const renderSearchBlock = (arr) => {
+    if (!document.querySelector(".search-result")) {
+      let div = document.createElement("div");
+      div.className = "search-result";
+      let h3 = document.createElement("h3");
+      h3.innerText = "Search result";
+      div.appendChild(h3);
+      document.body.appendChild(div);
+      renderSearchItems(arr);
+      router(document.querySelectorAll(".search-item"), 1);
+    }
+  };
+
+  const deleteSearchBlock = (block) => {
+    console.log("lsds");
+    block ? block.remove() : 0;
+  };
+
+  const search = (e) => {
+    let arr = [];
+    let input = e.target.value.toLowerCase().replace(/\s/g, "");
+    state.items.forEach((item) => {
+      if (
+        (item.name.toLowerCase().replace(/\s/g, "").includes(input) ||
+          item.description.toLowerCase().replace(/\s/g, "").includes(input)) &&
+        input.length >= 3
+      ) {
+        arr.push(item);
+      }
+    });
+
+    input.length >= 3
+      ? renderSearchBlock(arr)
+      : deleteSearchBlock(document.querySelector(".search-result"));
+  };
+
+  document.querySelector(".header-search").oninput = search;
+
+  const getSimilarProduct = (arr) => {
+    let similarProduct = document.querySelector(".similar-product");
+    similarProduct.innerHTML = "";
+    arr.forEach((item) => {
+      let product = document.createElement("div");
+      let productImg = document.createElement("img");
+      let productName = document.createElement("h3");
+      let productPrice = document.createElement("p");
+
+      product.className = "product";
+      productName.innerText = item.name;
+      productPrice.innerText = item.price + "$";
+      productImg.src = item.image;
+
+      product.appendChild(productImg);
+      product.appendChild(productName);
+      product.appendChild(productPrice);
+      similarProduct.appendChild(product);
+    });
+  };
+} else {
+  const shop = document.querySelector(".shop-items");
+
+  function pushItems(arr, parent, noSort = 1) {
+    arr
+      .sort((a, b) => (noSort ? b.price - a.price : 0))
+      .forEach((item) => {
+        const div = document.createElement("div");
+        div.classList.add("shop-item");
+        div.id = item.tag;
+        div.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <h3>${item.name}</h3>
+      <p>${item.price} $</p>
+    `;
+        parent.appendChild(div);
+      });
+  }
+
+  const categories = document.querySelectorAll(".category");
+
+  const getCategory = (e) => {
+    return e.target.innerText.toLowerCase();
+  };
+
+  const categoryFilter = (value) => {
+    if (value === "all") {
+      return state.items;
+    } else {
+      return state.items.filter((item) => item.tag === value);
+    }
+  };
+
+  const removeItems = (items) => {
+    items.forEach((item) => {
+      item.remove();
+    });
+  };
+
+  function handleCategory(cats, state) {
+    cats.forEach((item) => {
+      item.onclick = (e) => {
+        state.category = getCategory(e);
+        removeItems(document.querySelectorAll(".shop-item"));
+        pushItems(
+          state.priceFilter === "LH"
+            ? categoryFilter(state.category).sort((a, b) => a.price - b.price)
+            : categoryFilter(state.category).sort((a, b) => b.price - a.price),
+          shop,
+          0
         );
-        pageChange(item);
-        console.log(item, arr);
-      })
-  );
+        router(document.querySelectorAll(".shop-item"));
+        Array.from(cats)
+          .find((el) => el.classList.contains("active"))
+          .classList.remove("active");
+        e.target.className = "category active";
+      };
+    });
+  }
 
-  //checking if URL have changed
-  window.onpopstate = () => {
-    pageChange();
+  handleCategory(categories, state);
+
+  pushItems(state.items, shop);
+
+  let shopItems = document.querySelectorAll(".shop-item");
+
+  const handleSimilarProduct = (e) => {
+    itemPage(e.target.parentNode, 1);
   };
 
-  home.onclick = () => {
-    location.href.includes("github")
-      ? history.pushState(null, null, "/course")
-      : history.pushState(null, null, "/");
-    pageChange();
+  const closeOrderBlock = () => {
+    document.querySelector(".order").remove();
+    document.querySelector(".item-page").style.opacity = "1";
   };
 
-  //routing function
-  //checking URL if it includes item and then deleteing/rendering elements
-  function pageChange(el) {
-    if (location.href.includes("item")) {
-      deleteElements("home");
-      renderElements("item", el);
-      deleteBlock === 1
-        ? (document.querySelector(".header-search").value = "")
-        : 0;
-      deleteBlock === 1
-        ? document.querySelector(".search-result").remove()
-        : console.log(deleteBlock);
-    } else {
-      deleteElements("item");
-      renderElements("home");
+  const handleOrder = (e) => {
+    let block = document.createElement("div");
+    block.className = "order";
+    block.innerHTML = `
+  <div class = "order-block">
+    <img class = "block-close" src = './img/ico/xmark.webp' alt = 'close order block' width = '15' height = '20'>
+      <img src = './img/ico/success.webp' width = '80' height = '80' alt = 'payment was success'>
+      <div class = "block-text">
+        <p>Product: ${document.querySelector(".item-name").innerText}</p>
+        <p>Payment processed!</p>
+        <p>Thank you!</p>
+      </div>
+  </div>`;
+    document.body.appendChild(block);
+    document.querySelector(".item-page").style.opacity = "0.6";
+    document.querySelector(".block-close").onclick = closeOrderBlock;
+  };
+
+  function itemPage(item, fromSimilar = 0) {
+    document.querySelector(".item-page")
+      ? document.querySelector(".item-page").remove()
+      : 0;
+    //creating elements
+    let itemPage = document.createElement("div");
+    itemPage.className = "item-page";
+    let itemName = !fromSimilar
+      ? item.children[1].innerText
+      : item.children[2].children[0].innerText;
+
+    //similart product
+    let product = state.items[Math.floor(Math.random() * state.items.length)];
+
+    while (product.name === itemName) {
+      product = state.items[Math.floor(Math.random() * state.items.length)];
     }
+
+    itemPage.innerHTML = `
+  <img class = 'page-img' src = '${
+    item.innerHTML.split("src=")[1].split('"')[1]
+  }' width = '400' height = '380'>
+  <div class = 'page-controls'>
+    <div class = 'product-info'>
+      <h3 class = 'item-name'>${itemName}</h3>
+      <p>${
+        !fromSimilar
+          ? state.items.find((item) => item.name === itemName).description
+          : state.items.find((el) => el.name === itemName).description
+      }</p>
+      <button>${
+        !fromSimilar
+          ? item.children[2].innerText
+          : item.children[2].children[1].innerText
+      }</button>
+      <div class = 'controls-share'>
+        <p>Share on</p>
+        <div class = 'controls-share-icons'>
+          <img src="./img/ico/dribbble-dark.webp">
+          <img src="./img/ico/inst-dark.webp">
+          <img src="./img/ico/twitter-dark.webp">
+        </div>
+      </div>
+    </div>
+      <div class = 'similar-product'>
+        <h3 class="product-title">Similar product</h3>
+        <img src = '${product.image}'>
+        <div class = 'product-text-block'>
+          <h3>${product.name}</h3>
+          <p>${product.price}$</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+    document.body.prepend(itemPage);
+
+    document.querySelector(".similar-product").onclick = handleSimilarProduct;
+
+    document.querySelector(".product-info").children[2].onclick = handleOrder;
   }
 
-  //function that deletes all elements from home/item page
-  function deleteElements(page) {
-    if (page === "home") {
-      main.style.display = "none";
-      footer.style.display = "none";
-    } else {
-      document.querySelector(".item-page").remove();
+  function router(items = shopItems, deleteBlock = 0) {
+    //geting all elements from the main page
+    let main = document.getElementsByTagName("main")[0];
+    let home = document.querySelector(".home");
+    let footer = document.getElementsByTagName("footer")[0];
+
+    Array.from(items).forEach(
+      (item, arr) =>
+        (item.onclick = () => {
+          history.pushState(
+            null,
+            null,
+            `item-${item.children[1].outerText
+              .toLowerCase()
+              .replace(/\s/g, "")}`
+          );
+          pageChange(item);
+          console.log(item, arr);
+        })
+    );
+
+    //checking if URL have changed
+    window.onpopstate = () => {
+      pageChange();
+    };
+
+    home.onclick = () => {
+      location.href.includes("github")
+        ? history.pushState(null, null, "/course")
+        : history.pushState(null, null, "/");
+      pageChange();
+    };
+
+    //routing function
+    //checking URL if it includes item and then deleteing/rendering elements
+    function pageChange(el) {
+      if (location.href.includes("item")) {
+        deleteElements("home");
+        renderElements("item", el);
+        deleteBlock === 1
+          ? (document.querySelector(".header-search").value = "")
+          : 0;
+        deleteBlock === 1
+          ? document.querySelector(".search-result").remove()
+          : console.log(deleteBlock);
+      } else {
+        deleteElements("item");
+        renderElements("home");
+      }
     }
-  }
-  //function that renders all elements from home/item page
-  function renderElements(page, el) {
-    if (page === "home") {
-      main.style.display = "block";
-      footer.style.display = "flex";
-    } else {
-      //function that renders item page
-      itemPage(el);
+
+    //function that deletes all elements from home/item page
+    function deleteElements(page) {
+      if (page === "home") {
+        main.style.display = "none";
+        footer.style.display = "none";
+      } else {
+        document.querySelector(".item-page").remove();
+      }
     }
+    //function that renders all elements from home/item page
+    function renderElements(page, el) {
+      if (page === "home") {
+        main.style.display = "block";
+        footer.style.display = "flex";
+      } else {
+        //function that renders item page
+        itemPage(el);
+      }
+    }
+
+    return 0;
   }
 
-  return 0;
-}
-
-router(document.querySelectorAll(".shop-item"));
-
-function filterPrice(arr) {
-  document.querySelectorAll(".shop-item").forEach((item) => {
-    item.remove();
-  });
-
-  pushItems(arr, shop, 0);
   router(document.querySelectorAll(".shop-item"));
-}
 
-function filterItems() {
-  let arr = [];
-  if (state.priceFilter === "HL") {
-    arr = state.items.sort((a, b) => b.price - a.price);
-  } else if (state.priceFilter === "LH") {
-    arr = state.items.sort((a, b) => a.price - b.price);
+  function filterPrice(arr) {
+    document.querySelectorAll(".shop-item").forEach((item) => {
+      item.remove();
+    });
+
+    pushItems(arr, shop, 0);
+    router(document.querySelectorAll(".shop-item"));
   }
 
-  filterPrice(arr);
-}
-
-const getPriceFilter = (e) => {
-  state.priceFilter = e.target.value;
-  filterItems();
-};
-
-let categoryPrice = document.querySelector(".category-price");
-categoryPrice.onchange = getPriceFilter;
-
-const renderSearchItems = (arr) => {
-  arr.forEach((item) => {
-    let searchItem = document.createElement("div");
-    let itemName = document.createElement("h3");
-    let itemPrice = document.createElement("p");
-    let itemImg = document.createElement("img");
-
-    searchItem.className = "search-item";
-    itemName.innerText = item.name;
-    itemPrice.innerText = item.price + "$";
-    itemImg.src = item.image;
-
-    searchItem.appendChild(itemImg);
-    searchItem.appendChild(itemName);
-    searchItem.appendChild(itemPrice);
-    document.querySelector(".search-result").appendChild(searchItem);
-  });
-};
-
-const renderSearchBlock = (arr) => {
-  if (!document.querySelector(".search-result")) {
-    let div = document.createElement("div");
-    div.className = "search-result";
-    let h3 = document.createElement("h3");
-    h3.innerText = "Search result";
-    div.appendChild(h3);
-    document.body.appendChild(div);
-    renderSearchItems(arr);
-    router(document.querySelectorAll(".search-item"), 1);
-  }
-};
-
-const deleteSearchBlock = (block) => {
-  console.log("lsds");
-  block ? block.remove() : 0;
-};
-
-const search = (e) => {
-  let arr = [];
-  let input = e.target.value.toLowerCase().replace(/\s/g, "");
-  state.items.forEach((item) => {
-    if (
-      (item.name.toLowerCase().replace(/\s/g, "").includes(input) ||
-        item.description.toLowerCase().replace(/\s/g, "").includes(input)) &&
-      input.length >= 3
-    ) {
-      arr.push(item);
+  function filterItems() {
+    let arr = [];
+    if (state.priceFilter === "HL") {
+      arr = state.items.sort((a, b) => b.price - a.price);
+    } else if (state.priceFilter === "LH") {
+      arr = state.items.sort((a, b) => a.price - b.price);
     }
-  });
 
-  input.length >= 3
-    ? renderSearchBlock(arr)
-    : deleteSearchBlock(document.querySelector(".search-result"));
-};
+    filterPrice(arr);
+  }
 
-document.querySelector(".header-search").oninput = search;
+  const getPriceFilter = (e) => {
+    state.priceFilter = e.target.value;
+    filterItems();
+  };
 
-const getSimilarProduct = (arr) => {
-  let similarProduct = document.querySelector(".similar-product");
-  similarProduct.innerHTML = "";
-  arr.forEach((item) => {
-    let product = document.createElement("div");
-    let productImg = document.createElement("img");
-    let productName = document.createElement("h3");
-    let productPrice = document.createElement("p");
+  let categoryPrice = document.querySelector(".category-price");
+  categoryPrice.onchange = getPriceFilter;
 
-    product.className = "product";
-    productName.innerText = item.name;
-    productPrice.innerText = item.price + "$";
-    productImg.src = item.image;
+  const renderSearchItems = (arr) => {
+    arr.forEach((item) => {
+      let searchItem = document.createElement("div");
+      let itemName = document.createElement("h3");
+      let itemPrice = document.createElement("p");
+      let itemImg = document.createElement("img");
 
-    product.appendChild(productImg);
-    product.appendChild(productName);
-    product.appendChild(productPrice);
-    similarProduct.appendChild(product);
-  });
-};
+      searchItem.className = "search-item";
+      itemName.innerText = item.name;
+      itemPrice.innerText = item.price + "$";
+      itemImg.src = item.image;
+
+      searchItem.appendChild(itemImg);
+      searchItem.appendChild(itemName);
+      searchItem.appendChild(itemPrice);
+      document.querySelector(".search-result").appendChild(searchItem);
+    });
+  };
+
+  const renderSearchBlock = (arr) => {
+    if (!document.querySelector(".search-result")) {
+      let div = document.createElement("div");
+      div.className = "search-result";
+      let h3 = document.createElement("h3");
+      h3.innerText = "Search result";
+      div.appendChild(h3);
+      document.body.appendChild(div);
+      renderSearchItems(arr);
+      router(document.querySelectorAll(".search-item"), 1);
+    }
+  };
+
+  const deleteSearchBlock = (block) => {
+    console.log("lsds");
+    block ? block.remove() : 0;
+  };
+
+  const search = (e) => {
+    let arr = [];
+    let input = e.target.value.toLowerCase().replace(/\s/g, "");
+    state.items.forEach((item) => {
+      if (
+        (item.name.toLowerCase().replace(/\s/g, "").includes(input) ||
+          item.description.toLowerCase().replace(/\s/g, "").includes(input)) &&
+        input.length >= 3
+      ) {
+        arr.push(item);
+      }
+    });
+
+    input.length >= 3
+      ? renderSearchBlock(arr)
+      : deleteSearchBlock(document.querySelector(".search-result"));
+  };
+
+  document.querySelector(".header-search").oninput = search;
+
+  const getSimilarProduct = (arr) => {
+    let similarProduct = document.querySelector(".similar-product");
+    similarProduct.innerHTML = "";
+    arr.forEach((item) => {
+      let product = document.createElement("div");
+      let productImg = document.createElement("img");
+      let productName = document.createElement("h3");
+      let productPrice = document.createElement("p");
+
+      product.className = "product";
+      productName.innerText = item.name;
+      productPrice.innerText = item.price + "$";
+      productImg.src = item.image;
+
+      product.appendChild(productImg);
+      product.appendChild(productName);
+      product.appendChild(productPrice);
+      similarProduct.appendChild(product);
+    });
+  };
+}
