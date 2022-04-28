@@ -2,8 +2,8 @@ const state = {
   items: [
     {
       id: 1,
-      name: "iPhone",
-      price: 10,
+      name: "iPhone 11",
+      price: 70,
       quantity: 1,
       image: "./img/items/item1.webp",
       tag: "iphone",
@@ -12,8 +12,8 @@ const state = {
     },
     {
       id: 2,
-      name: "MacBook",
-      price: 20,
+      name: "MacBook Air",
+      price: 150,
       quantity: 1,
       image: "./img/items/item2.webp",
       tag: "macbook",
@@ -22,8 +22,8 @@ const state = {
     },
     {
       id: 3,
-      name: "iPad",
-      price: 30,
+      name: "iPad Pro",
+      price: 110,
       quantity: 1,
       image: "./img/items/item3.webp",
       tag: "ipad",
@@ -33,10 +33,70 @@ const state = {
     {
       id: 4,
       name: "Apple Watch",
-      price: 40,
+      price: 60,
       quantity: 1,
       image: "./img/items/item4.webp",
       tag: "watch",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
+    },
+    {
+      id: 5,
+      name: "Apple Watch 3",
+      price: 40,
+      quantity: 1,
+      image: "./img/items/item5.webp",
+      tag: "watch",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
+    },
+    {
+      id: 6,
+      name: "AirPods Pro",
+      price: 35,
+      quantity: 1,
+      image: "./img/items/item6.webp",
+      tag: "airpods",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
+    },
+    {
+      id: 7,
+      name: "iMac Pro",
+      price: 200,
+      quantity: 1,
+      image: "./img/items/item7.webp",
+      tag: "mac",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
+    },
+    {
+      id: 8,
+      name: "iPhone 13 Pro Max",
+      price: 130,
+      quantity: 1,
+      image: "./img/items/item8.webp",
+      tag: "iphone",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
+    },
+    {
+      id: 9,
+      name: "AirPods 2",
+      price: 35,
+      quantity: 1,
+      image: "./img/items/item9.webp",
+      tag: "airpods",
+      description:
+        "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
+    },
+    {
+      id: 10,
+      name: "iMac 2021 24”",
+      price: 240,
+      quantity: 1,
+      image: "./img/items/item10.webp",
+      tag: "mac",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
     },
@@ -88,7 +148,13 @@ function handleCategory(cats, state) {
     item.onclick = (e) => {
       state.category = getCategory(e);
       removeItems(document.querySelectorAll(".shop-item"));
-      pushItems(categoryFilter(state.category), shop);
+      pushItems(
+        state.priceFilter === "LH"
+          ? categoryFilter(state.category).sort((a, b) => a.price - b.price)
+          : categoryFilter(state.category).sort((a, b) => b.price - a.price),
+        shop,
+        0
+      );
       router(document.querySelectorAll(".shop-item"));
       Array.from(cats)
         .find((el) => el.classList.contains("active"))
@@ -152,7 +218,7 @@ function itemPage(item, fromSimilar = 0) {
   itemPage.innerHTML = `
   <img class = 'page-img' src = '${
     item.innerHTML.split("src=")[1].split('"')[1]
-  }'>
+  }' width = '400' height = '380'>
   <div class = 'page-controls'>
     <div class = 'product-info'>
       <h3 class = 'item-name'>${itemName}</h3>
@@ -267,16 +333,16 @@ function router(items = shopItems, deleteBlock = 0) {
 
 router(document.querySelectorAll(".shop-item"));
 
-const filterPrice = (arr) => {
+function filterPrice(arr) {
   document.querySelectorAll(".shop-item").forEach((item) => {
     item.remove();
   });
 
   pushItems(arr, shop, 0);
   router(document.querySelectorAll(".shop-item"));
-};
+}
 
-const filterItems = () => {
+function filterItems() {
   let arr = [];
   if (state.priceFilter === "HL") {
     arr = state.items.sort((a, b) => b.price - a.price);
@@ -285,9 +351,9 @@ const filterItems = () => {
   }
 
   filterPrice(arr);
-};
+}
 
-getPriceFilter = (e) => {
+const getPriceFilter = (e) => {
   state.priceFilter = e.target.value;
   filterItems();
 };
