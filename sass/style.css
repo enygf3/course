@@ -712,4 +712,33 @@ footer {
       align-self: flex-start;
   margin-left: 0px;
 }
+
+.order {
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background: transparent;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.order-block {
+  width: 600px;
+  height: 450px;
+  background: #fff;
+  border-radius: 10px;
+  position: relative;
+  top: calc(50% - 225px);
+  z-index: 15;
+}
+
+.order-block .block-close {
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
 /*# sourceMappingURL=style.css.map */

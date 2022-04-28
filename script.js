@@ -108,118 +108,89 @@ const handleSimilarProduct = (e) => {
   itemPage(e.target.parentNode, 1);
 };
 
+const closeOrderBlock = () => {
+  document.querySelector(".order").remove();
+  document.querySelector(".item-page").style.opacity = "1";
+};
+
+const handleOrder = (e) => {
+  let block = document.createElement("div");
+  block.className = "order";
+  block.innerHTML = `
+  <div class = "order-block">
+    <img class = "block-close" src = './img/ico/xmark.webp' alt = 'close order block' width = '15' height = '20'>
+      <img src = './img/ico/success.webp' width = '80' height = '80' alt = 'payment was success'>
+      <div class = "block-text">
+        <p>Product: ${document.querySelector(".item-name").innerText}</p>
+        <p>Payment processed!</p>
+        <p>Thank you!</p>
+      </div>
+  </div>`;
+  document.body.appendChild(block);
+  document.querySelector(".item-page").style.opacity = "0.6";
+  document.querySelector(".block-close").onclick = closeOrderBlock;
+};
+
 function itemPage(item, fromSimilar = 0) {
   document.querySelector(".item-page")
     ? document.querySelector(".item-page").remove()
     : 0;
   //creating elements
   let itemPage = document.createElement("div");
-  let itemImg = document.createElement("img");
-  let itemName = document.createElement("h3");
-  let itemDesc = document.createElement("p");
-  let itemPrice = document.createElement("button");
-  let productInfoBlock = document.createElement("div");
-
-  let itemControls = document.createElement("div");
-  let itemControlsShare = document.createElement("div");
-  let itemControlsShareIcons = document.createElement("div");
-  let itemControlsShareIconsImg1 = document.createElement("img");
-  let itemControlsShareIconsImg2 = document.createElement("img");
-  let itemControlsShareIconsImg3 = document.createElement("img");
-  let itemControlsText = document.createElement("p");
-
-  let similarProduct = document.createElement("div");
-  let similarProductBlockTitle = document.createElement("h3");
-  let similarProductTitle = document.createElement("h3");
-  let similarProductImg = document.createElement("img");
-  let similarProductPrice = document.createElement("p");
-  let similarProductTextBlock = document.createElement("div");
-
-  //giving elements classes
   itemPage.className = "item-page";
-  itemName.className = "item-name";
-  itemControls.className = "page-controls";
-  itemControlsShare.className = "controls-share";
-  itemControlsShareIcons.className = "controls-share-icons";
-  itemImg.className = "page-img";
-  similarProductTextBlock.className = "product-text";
-  productInfoBlock.className = "product-info";
-
-  similarProduct.className = "similar-product";
-  similarProductTextBlock.className = "product-text-block";
-  similarProductBlockTitle.className = "product-title";
-
-  //putting img sources
-  itemImg.src = item.innerHTML.split("src=")[1].split('"')[1];
-  itemControlsShareIconsImg1.src = "./img/ico/dribbble-dark.webp";
-  itemControlsShareIconsImg2.src = "./img/ico/inst-dark.webp";
-  itemControlsShareIconsImg3.src = "./img/ico/twitter-dark.webp";
-
-  //putting info to similar product block
-  similarProduct.appendChild(similarProductBlockTitle);
-  similarProduct.appendChild(similarProductImg);
-  similarProductTextBlock.appendChild(similarProductTitle);
-  similarProductTextBlock.appendChild(similarProductPrice);
-  similarProduct.appendChild(similarProductTextBlock);
-
-  console.log(item.children);
-
-  //putting text
-  if (!fromSimilar) {
-    itemName.innerText = item.children[1].innerText;
-    itemDesc.innerText = state.items.find(
-      (item) => item.name === itemName.innerText
-    ).description;
-    itemPrice.innerText = item.children[2].innerText;
-  } else {
-    itemName.innerText = item.children[2].children[0].innerText;
-    itemDesc.innerText = state.items.find(
-      (el) => el.name === itemName.innerText
-    ).description;
-    itemPrice.innerText = item.children[2].children[1].innerText;
-    console.log(
-      itemName.innerText,
-      itemDesc.innerText,
-      itemPrice.innerText,
-      itemImg.src
-    );
-  }
+  let itemName = !fromSimilar
+    ? item.children[1].innerText
+    : item.children[2].children[0].innerText;
 
   //similart product
   let product = state.items[Math.floor(Math.random() * state.items.length)];
-  similarProductImg.src = product.image;
-  similarProductTitle.innerText = product.name;
-  similarProductPrice.innerText = product.price + " $";
-  similarProductBlockTitle.innerText = "Similar product";
 
-  while (similarProductTitle.innerText === itemName.innerText) {
+  while (product.name === itemName) {
     product = state.items[Math.floor(Math.random() * state.items.length)];
-    similarProductImg.src = product.image;
-    similarProductTitle.innerText = product.name;
-    similarProductPrice.innerText = product.price + " $";
   }
 
-  itemControlsText.innerText = "Share on";
+  itemPage.innerHTML = `
+  <img class = 'page-img' src = '${
+    item.innerHTML.split("src=")[1].split('"')[1]
+  }'>
+  <div class = 'page-controls'>
+    <div class = 'product-info'>
+      <h3 class = 'item-name'>${itemName}</h3>
+      <p>${
+        !fromSimilar
+          ? state.items.find((item) => item.name === itemName).description
+          : state.items.find((el) => el.name === itemName).description
+      }</p>
+      <button>${
+        !fromSimilar
+          ? item.children[2].innerText
+          : item.children[2].children[1].innerText
+      }</button>
+      <div class = 'controls-share'>
+        <p>Share on</p>
+        <div class = 'controls-share-icons'>
+          <img src="./img/ico/dribbble-dark.webp">
+          <img src="./img/ico/inst-dark.webp">
+          <img src="./img/ico/twitter-dark.webp">
+        </div>
+      </div>
+    </div>
+      <div class = 'similar-product'>
+        <h3 class="product-title">Similar product</h3>
+        <img src = '${product.image}'>
+        <div class = 'product-text-block'>
+          <h3>${product.name}</h3>
+          <p>${product.price}$</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
 
-  //putting elements to the page
-  itemControlsShare.appendChild(itemControlsText);
-  itemControlsShareIcons.appendChild(itemControlsShareIconsImg1);
-  itemControlsShareIcons.appendChild(itemControlsShareIconsImg2);
-  itemControlsShareIcons.appendChild(itemControlsShareIconsImg3);
-  itemControlsShare.appendChild(itemControlsShareIcons);
-  productInfoBlock.appendChild(itemName);
-  productInfoBlock.appendChild(itemDesc);
-  productInfoBlock.appendChild(itemPrice);
-  productInfoBlock.appendChild(itemControlsShare);
-  itemControls.appendChild(productInfoBlock);
-  itemControls.appendChild(similarProduct);
-  itemPage.appendChild(itemImg);
-  itemPage.appendChild(itemControls);
   document.body.prepend(itemPage);
 
-  console.log(document.body);
-
   document.querySelector(".similar-product").onclick = handleSimilarProduct;
+
+  document.querySelector(".product-info").children[2].onclick = handleOrder;
 }
 
 function router(items = shopItems, deleteBlock = 0) {
