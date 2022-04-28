@@ -469,6 +469,14 @@ footer
   position: relative
   top: calc(50% - 225px)
   z-index: 15
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  align-items: center
+  justify-content: center
+  text-align: center
+  &:nth-child(2)
+    margin-top: -50px
   .block-close
     width: 15px
     height: 20px
@@ -476,3 +484,15 @@ footer
     top: 10px
     right: 10px
     cursor: pointer
+
+.block-text
+  font-family: 'Rubik', sans-serif
+  margin-top: 40px
+  p
+    font-family: 'Rubik', sans-serif
+    padding: 5px
+    font-weight: 400
+    &:nth-child(2)
+      font-size: 24px
+      font-weight: bold
+    
