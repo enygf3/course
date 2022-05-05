@@ -348,13 +348,18 @@ function filterPrice(arr) {
 
 function filterItems() {
   let arr = [];
+  let newArr = [];
   if (state.priceFilter === "HL") {
     arr = state.items.sort((a, b) => b.price - a.price);
   } else if (state.priceFilter === "LH") {
     arr = state.items.sort((a, b) => a.price - b.price);
   }
 
-  filterPrice(arr);
+  state.category === "all"
+    ? (newArr = arr)
+    : (newArr = arr.filter((item) => item.tag === state.category));
+
+  filterPrice(newArr);
 }
 
 const getPriceFilter = (e) => {
