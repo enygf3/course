@@ -447,3 +447,51 @@ const getSimilarProduct = (arr) => {
     similarProduct.appendChild(product);
   });
 };
+
+const isMobile = window.innerWidth > 600 ? 1 : 0;
+
+const handleMenu = (e) => {
+  let menuBlock = document.createElement("div");
+  menuBlock.className = "menu-block";
+  menuBlock.style.display = "none";
+  menuBlock.innerHTML = `
+    <img class = 'menu-close' src = './img/ico/xmark.webp' width = '30' height = '45'>
+    <div class = 'menu-content'>
+      <p class = 'menu-item'><a href = './index.html'>Home</a></p>
+      <p class = 'menu-item'><a href = './about.html'>About</a></p>
+      <p class = 'menu-item'><a href = './contact.html'>Contact</a></p>
+    </div>
+  `;
+
+  document.getElementsByTagName("main")[0].appendChild(menuBlock);
+
+  const showEl = (el) => {
+    el.style.transitionDuration = ".5s";
+    el.style.opacity = "1";
+  };
+
+  const displayEl = (el) => {
+    el.style.display = "block";
+    el.style.opacity = "0";
+  };
+
+  const hideEl = (el) => {
+    el.style.opacity = "0";
+  };
+
+  const removeEl = (el) => {
+    el.remove();
+  };
+
+  displayEl(menuBlock);
+  setTimeout(showEl, 100, menuBlock);
+
+  const closeMenu = () => {
+    hideEl(menuBlock);
+    setTimeout(removeEl, 500, menuBlock);
+  };
+
+  document.querySelector(".menu-close").onclick = closeMenu;
+};
+
+document.querySelector(".header-menu").onclick = handleMenu;
