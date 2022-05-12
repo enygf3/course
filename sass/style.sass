@@ -515,9 +515,6 @@ footer
   footer
     display: none
 
-  .main-shop
-    margin-left: 3vw
-
   .header-pages
     display: none
 
@@ -532,7 +529,7 @@ footer
     height: 30px
     position: absolute
     top: 25px
-    right: 20px
+    right: 10px
     img
       trsition-duration: .5s
       &:hover
@@ -540,7 +537,7 @@ footer
         transition-duration: .5s
 
   .menu-block
-    width: 400px
+    width: 100%
     height: 100%
     background: #fff
     position: fixed
@@ -556,9 +553,10 @@ footer
     display: flex
     flex-direction: column
     flex-wrap: nowrap
-    align-items: start
+    align-items: center
     justify-content: space-evenly
     margin-top: 230px
+    position: relative
     p
       font-family: 'Rubik', sans-serif
       font-style: normal
@@ -578,8 +576,10 @@ footer
 
   .main-bg
     margin-left: 0
+    h3
+      width: 275px
     img
-      width: 400px
+      width: 100%
       height: 200px
 
   .search-result
@@ -590,15 +590,21 @@ footer
     margin-left: 0
 
   .shop-item
+    left: 50%
+    width: 90%
+    transform: translate(-50%, 0)
     margin-left: 0
-    width: 380px
     img
-      width: 380px
+      width: 100%
+      height: 80%
+
+  .shop-filter
+    width: 90%
 
   .filters-category
     display: grid
-    grid-template-columns: repeat(4, 1fr)
-    grid-template-rows: 1fr 1fr
+    grid-template-columns: repeat(3, 1fr)
+    grid-template-rows: 1fr 1fr 1fr
     margin-left: 0
     div
       width: 88px
