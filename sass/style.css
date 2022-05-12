@@ -799,9 +799,6 @@ footer {
 }
 
 @media all and (max-width: 600px) {
-  footer {
-    display: none;
-  }
   .header-pages {
     display: none;
   }
@@ -932,6 +929,15 @@ footer {
   }
   main {
     width: 100%;
+  }
+  .footer-contacts {
+    left: 0;
+  }
+  .footer-contacts img {
+    margin-right: 0;
+  }
+  .footer-contacts .contacts {
+    margin-left: 0;
   }
 }
 /*# sourceMappingURL=style.css.map */
