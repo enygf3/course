@@ -175,6 +175,13 @@ isHome ? pushItems(state.items, shop) : 0;
 let shopItems = document.querySelectorAll(".shop-item");
 
 const handleSimilarProduct = (e) => {
+  history.pushState(
+    null,
+    null,
+    `item-${e.target.parentNode.children[2].children[0].innerText
+      .toLowerCase()
+      .replace(/\s/g, "")}`
+  );
   itemPage(e.target.parentNode, 1);
 };
 
@@ -278,7 +285,6 @@ function router(items, deleteBlock = 0) {
           `item-${item.children[1].outerText.toLowerCase().replace(/\s/g, "")}`
         );
         pageChange(item);
-        console.log(item, arr);
       })
   );
 
@@ -303,9 +309,7 @@ function router(items, deleteBlock = 0) {
       deleteBlock === 1
         ? (document.querySelector(".header-search").value = "")
         : 0;
-      deleteBlock === 1
-        ? document.querySelector(".search-result").remove()
-        : console.log(deleteBlock);
+      deleteBlock === 1 ? document.querySelector(".search-result").remove() : 0;
     } else {
       deleteElements("item");
       renderElements("home");
@@ -403,7 +407,6 @@ const renderSearchBlock = (arr) => {
 };
 
 const deleteSearchBlock = (block) => {
-  console.log("lsds");
   block ? block.remove() : 0;
 };
 
