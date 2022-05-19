@@ -1,3 +1,17 @@
+@mixin flexRow
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  align-items: center
+  justify-content: start
+
+@mixin flexColumn
+  display: flex
+  flex-direction: column
+  flex-wrap: wrap
+  align-items: center
+  justify-content: center
+  
 *
     margin: 0 auto
     padding: 0
@@ -63,10 +77,8 @@ header
         cursor: pointer
 
 .header-pages
-    display: flex
-    flex-direction: row
+    @include flexRow
     flex-wrap: nowrap
-    align-items: center
     justify-content: space-evenly
     width: 300px
     text-transform: uppercase
@@ -165,9 +177,7 @@ p
   min-height: 80px
   z-index: 1
   background: rgba(255, 255, 255, 0.8)
-  display: flex
-  flex-direction: column
-  align-items: center
+  @include flexColumn
   justify-content: space-evenly
   flex-wrap: nowrap
   border-radius: 0px 0px 10px 10px
@@ -210,10 +220,7 @@ p
   padding-bottom: 15px
 
 .controls-share-icons
-  display: flex
-  flex-direction: row
-  flex-wrap: wrap
-  align-items: center
+  @include flexRow
   justify-content: space-evenly
   width: 100px
   height: 30px
@@ -333,6 +340,9 @@ p
 .active-page
   h3
     border-bottom: 1px solid #E5E7EF
+
+.header-menu
+    display: none
 
 @media all and (max-width: 600px)
 

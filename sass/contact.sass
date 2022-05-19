@@ -1,3 +1,17 @@
+@mixin flexRow
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  align-items: center
+  justify-content: start
+
+@mixin flexColumn
+  display: flex
+  flex-direction: column
+  flex-wrap: wrap
+  align-items: center
+  justify-content: center
+  
 *
     margin: 0 auto
     padding: 0
@@ -67,10 +81,8 @@ header
         cursor: pointer
 
 .header-pages
-    display: flex
-    flex-direction: row
+    @include flexRow
     flex-wrap: nowrap
-    align-items: center
     justify-content: space-evenly
     width: 300px
     text-transform: uppercase
@@ -129,8 +141,7 @@ main
         border-bottom: 1px solid #E5E7EF
 
 .main-contact
-    display: flex
-    flex-direction: column
+    @include flexColumn
     flex-wrap: nowrap
     align-items: flex-start
     justify-content: space-evenly
@@ -393,6 +404,9 @@ button
     &:nth-child(2)
       font-size: 24px
       font-weight: bold
+
+.header-menu
+    display: none
     
 @media all and (max-width: 600px)
 

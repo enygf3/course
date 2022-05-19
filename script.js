@@ -208,6 +208,10 @@ const handleOrder = (e) => {
   document.querySelector(".block-close").onclick = closeOrderBlock;
 };
 
+if (location.href.includes("item")) {
+  document.querySelector(".header-menu").style.display = "none";
+}
+
 function itemPage(item, fromSimilar = 0) {
   document.querySelector(".item-page")
     ? document.querySelector(".item-page").remove()
