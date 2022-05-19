@@ -1,3 +1,37 @@
+import "./sass/style.sass";
+import "./fonts/fonts.sass";
+import "./sass/about.sass";
+import "./sass/contact.sass";
+
+import "./img/ico/xmark.webp";
+import "./img/ico/arrow-right.webp";
+import "./img/ico/favicon.ico";
+import "./img/ico/footer-logo.webp";
+import "./img/ico/dribbble.webp";
+import "./img/ico/dribbble-dark.webp";
+import "./img/ico/inst.webp";
+import "./img/ico/inst-dark.webp";
+import "./img/ico/mail.webp";
+import "./img/ico/success.webp";
+import "./img/ico/twitter.webp";
+import "./img/ico/twitter-dark.webp";
+import "./img/items/item1.webp";
+import "./img/items/item2.webp";
+import "./img/items/item3.webp";
+import "./img/items/item4.webp";
+import "./img/items/item5.webp";
+import "./img/items/item6.webp";
+import "./img/items/item7.webp";
+import "./img/items/item8.webp";
+import "./img/items/item9.webp";
+import "./img/items/item10.webp";
+import "./img/about.webp";
+import "./img/header-logo.webp";
+import "./img/top-bg.webp";
+import "./img/menu.webp";
+
+import "./img/about.webp";
+
 const state = {
   items: [
     {
@@ -5,7 +39,7 @@ const state = {
       name: "iPhone 11",
       price: 70,
       quantity: 1,
-      image: "./img/items/item1.webp",
+      image: "./item1.webp",
       tag: "iphone",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -15,7 +49,7 @@ const state = {
       name: "MacBook Air",
       price: 150,
       quantity: 1,
-      image: "./img/items/item2.webp",
+      image: "./item2.webp",
       tag: "macbook",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -25,7 +59,7 @@ const state = {
       name: "iPad Pro",
       price: 110,
       quantity: 1,
-      image: "./img/items/item3.webp",
+      image: "./item3.webp",
       tag: "ipad",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -35,7 +69,7 @@ const state = {
       name: "Apple Watch",
       price: 60,
       quantity: 1,
-      image: "./img/items/item4.webp",
+      image: "./item4.webp",
       tag: "watch",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -45,7 +79,7 @@ const state = {
       name: "Apple Watch 3",
       price: 40,
       quantity: 1,
-      image: "./img/items/item5.webp",
+      image: "./item5.webp",
       tag: "watch",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -55,7 +89,7 @@ const state = {
       name: "AirPods Pro",
       price: 35,
       quantity: 1,
-      image: "./img/items/item6.webp",
+      image: "./item6.webp",
       tag: "airpods",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -65,7 +99,7 @@ const state = {
       name: "iMac Pro",
       price: 200,
       quantity: 1,
-      image: "./img/items/item7.webp",
+      image: "./item7.webp",
       tag: "mac",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -75,7 +109,7 @@ const state = {
       name: "iPhone 13 Pro Max",
       price: 130,
       quantity: 1,
-      image: "./img/items/item8.webp",
+      image: "./item8.webp",
       tag: "iphone",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -85,7 +119,7 @@ const state = {
       name: "AirPods 2",
       price: 35,
       quantity: 1,
-      image: "./img/items/item9.webp",
+      image: "./item9.webp",
       tag: "airpods",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
@@ -95,7 +129,7 @@ const state = {
       name: "iMac 2021 24”",
       price: 240,
       quantity: 1,
-      image: "./img/items/item10.webp",
+      image: "./item10.webp",
       tag: "mac",
       description:
         "Our thinnest, lightest notebook, completely transformed by the Apple M1 chip. CPU speeds up to 3.5x faster. GPU speeds up to 5x faster. ",
