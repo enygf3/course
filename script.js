@@ -222,8 +222,8 @@ const handleOrder = (e) => {
   block.className = "order";
   block.innerHTML = `
   <div class = "order-block">
-    <img class = "block-close" src = './img/ico/xmark.webp' alt = 'close order block' width = '15' height = '20'>
-      <img src = './img/ico/success.webp' width = '80' height = '80' alt = 'payment was success'>
+    <img class = "block-close" src = './xmark.webp' alt = 'close order block' width = '15' height = '20'>
+      <img src = './success.webp' width = '80' height = '80' alt = 'payment was success'>
       <div class = "block-text">
         <p>Product: ${document.querySelector(".item-name").innerText}</p>
         <p>Payment processed!</p>
@@ -273,9 +273,9 @@ function itemPage(item, fromSimilar = 0) {
       <div class = 'controls-share'>
         <p>Share on</p>
         <div class = 'controls-share-icons'>
-          <img src="./img/ico/dribbble-dark.webp">
-          <img src="./img/ico/inst-dark.webp">
-          <img src="./img/ico/twitter-dark.webp">
+          <img src="./dribbble-dark.webp">
+          <img src="./inst-dark.webp">
+          <img src="./twitter-dark.webp">
         </div>
       </div>
     </div>

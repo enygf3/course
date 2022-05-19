@@ -2,7 +2,7 @@ const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+const WebpackFavicons = require("webpack-favicons");
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -33,7 +33,13 @@ module.exports = {
   },
   plugins: [
     new ESLintPlugin(),
-    new FaviconsWebpackPlugin("./img/ico/favicon.ico"),
+    new WebpackFavicons({
+      src: "./img/ico/favicon.ico",
+      path: "img",
+      icons: {
+        favicons: true,
+      },
+    }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
