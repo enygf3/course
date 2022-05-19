@@ -763,5 +763,12 @@ button {
   .main-contact {
     width: 90%;
   }
+  .menu-close {
+    width: 15px;
+    height: 20px;
+  }
+  .menu-content p {
+    width: auto;
+  }
 }
 /*# sourceMappingURL=contact.css.map */
